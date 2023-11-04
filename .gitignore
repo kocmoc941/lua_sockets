@@ -1,0 +1,4 @@
+#all except sources
+*
+!*.c
+!*.h
