@@ -34,6 +34,7 @@ struct Sthreadctx {
     enum ConTypes type;
     uint8_t blocked;
     uint8_t is_client;
+    struct SPacket packet;
 };
 
 
@@ -151,11 +152,7 @@ void *sv_thread(void *arg)
 void *cl_thread(void *arg)
 {
     struct Sthreadctx *sth = (struct Sthreadctx *)arg;
-    while(sth->run) {
-        struct sockaddr_in claddr;
-        int cllen = sizeof(claddr);
-        int scl = accept(sth->socket, (struct sockaddr *)&claddr, &cllen);
-    }
+    int cnt = send(sth->socket, (char *)&sth->packet, sizeof(sth->packet), 0);
 }
 
 void handle_clients(struct Sthreadctx *ctx)
